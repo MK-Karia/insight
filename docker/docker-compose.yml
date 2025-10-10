@@ -5,17 +5,19 @@ services:
     build:
       context: ./nginx
     volumes:
-      - ./app:/symfony
+      - ../app:/symfony
     container_name: ${PROJECT_NAME}-nginx
     restart: always
     ports:
       - "8081:80"
+    depends_on:
+      - php-fpm
 
   php-fpm:
     build:
       context: ./php-fpm
     volumes:
-      - ./app:/symfony
+      - ../app:/symfony
     container_name: ${PROJECT_NAME}-php-fpm
     depends_on:
       - mysql
@@ -24,7 +26,7 @@ services:
     build:
       context: ./php-cli
     volumes:
-      - ./app:/symfony
+      - ../app:/symfony
     command: sleep 10000
     container_name: ${PROJECT_NAME}-php-cli
 
@@ -36,6 +38,7 @@ services:
     container_name: ${PROJECT_NAME}-mysql
     restart: always
     environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
       - "MYSQL_DATABASE=${MYSQL_DATABASE}"
       - "MYSQL_USER=${MYSQL_USER}"
