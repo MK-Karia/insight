@@ -29,6 +29,15 @@ services:
     command: sleep 10000
     container_name: ${PROJECT_NAME}-php-cli
 
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../app/frontend:/frontend
+    container_name: ${PROJECT_NAME}-frontend
+
   mysql:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
