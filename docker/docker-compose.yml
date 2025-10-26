@@ -37,7 +37,10 @@ services:
       - "3000:3000"
     volumes:
       - ../app/frontend:/frontend
+      - /frontend/node_modules  
     container_name: ${PROJECT_NAME}-frontend
+    environment:
+      - WATCHPACK_POLLING=true
 
   mysql:
     image: mysql:8.0
