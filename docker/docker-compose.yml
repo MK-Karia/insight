@@ -49,7 +49,7 @@ services:
       - mysql:/var/lib/mysql
     container_name: ${PROJECT_NAME}-mysql
     ports:
-      - "13306:3306"
+      - "3306:3306"
     restart: always
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
