@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="category")
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ */
 class Category
 {
     private string $categoryId;
