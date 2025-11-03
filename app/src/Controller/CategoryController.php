@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategoryController extends AbstractController
@@ -67,7 +66,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/api/category/edit", methods={"POST"})
      */
-    public function editCategory(Request $request, CategoryService $categoryService): JsonResponse
+    public function updateCategory(Request $request, CategoryService $categoryService): JsonResponse
     {
         $data = $this->getRequest($request);
         $id = $data['id'] ?? null;
@@ -80,7 +79,7 @@ class CategoryController extends AbstractController
 
         try 
         {
-            $categoryService->editCategory($id, $name);
+            $categoryService->updateCategory($id, $name);
             return new JsonResponse(null, Response::HTTP_OK);
         } 
         catch (CategoryNotFoundException $e) 

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+/**
+ * @ORM\Entity(repositoryClass=RoleRepository::class)
+ */
 class Role
 {
     private int $roleId;

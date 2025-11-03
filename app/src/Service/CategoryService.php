@@ -39,7 +39,7 @@ class CategoryService
         return $category;
     }
 
-    public function editCategory(string $id, string $name): void
+    public function updateCategory(string $id, string $name): void
     {
         $category = $this->categoryRepository->find($id);
 
