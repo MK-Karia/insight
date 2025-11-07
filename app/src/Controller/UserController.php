@@ -38,10 +38,20 @@ class UserController extends AbstractController
      */
     public function showUserProfile(string $id, UserService $userService): JsonResponse
     {
-        $user = $userService->getUser($id);
-        $userProfile = $this->createUserProfileData($user);
-
-        return new JsonResponse($userProfile, Response::HTTP_OK);
+        try 
+        {
+            $user = $userService->getUser($id);
+            $userProfile = $this->createUserProfileData($user);
+            return new JsonResponse($userProfile, Response::HTTP_OK);
+        }
+        catch (UserNotFoundException $e) 
+        {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_NOT_FOUND);
+        } 
+        catch (Exception $e)
+        {
+            return new JsonResponse(['error' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**

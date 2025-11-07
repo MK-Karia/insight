@@ -60,11 +60,15 @@ class UserService
         {
             throw new BadRequestHttpException('USER_ALREADY_EXIST');
         }
+
         $userId = uniqid('', true);
         $role = $this->roleRepository->findOneBy(['roleName' => 'USER']);
-        if (!$role) {
+
+        if (!$role) 
+        {
             throw new RoleNotFoundException;
         }
+
         $birthdate = new \DateTime($date);
 
         $user = new User(
@@ -91,12 +95,6 @@ class UserService
         $avatar = $data['avatar'] ?? null;
 
         $user = $this->getUser($id);
-
-        if ($user === null) 
-        {
-            throw new UserNotFoundException;
-        }
-
         $existing = $this->userRepository->findOneBy(['email' => $email]);
         if ($existing !== null && $existing->getId() !== $id) 
         {
